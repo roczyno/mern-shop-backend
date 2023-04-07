@@ -16,6 +16,7 @@ const main = async () => {
 app.use(express.json());
 app.use(cors());
 
+//routes
 app.use("/api/auth", AuthRouter);
 
 app.listen(5000, () => {

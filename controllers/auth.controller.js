@@ -6,12 +6,14 @@ export const register = async (req, res) => {
   try {
     const { error } = validate(req.body);
     if (error) {
-      return res.status(400).json("error");
+      return res.status(400).send({ message: error.details[0].message });
     }
 
     const user = await User.findOne({ email: req.body.email });
     if (user) {
-      return res.status(409).json("User with given email already exist");
+      return res
+        .status(409)
+        .send({ message: "User with given email already exist" });
     }
 
     const newUser = new User({
@@ -23,10 +25,10 @@ export const register = async (req, res) => {
       ).toString(),
     });
     const savedUser = await newUser.save();
-    const { password, ...others } = savedUser._doc;
-    res.status(200).json(others);
+
+    res.status(200).send({ message: "User created successfully" });
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).send({ message: "Internal server error" });
   }
 };
 
@@ -34,7 +36,7 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(401).json("User not found");
+      return res.status(401).send({ message: "User not found" });
     }
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
@@ -42,7 +44,7 @@ export const login = async (req, res) => {
     );
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
     originalPassword !== req.body.password &&
-      res.status(401).json("wrong credentials");
+      res.status(401).json({ message: "wrong credentials" });
 
     const accessToken = jwt.sign(
       {
@@ -53,7 +55,7 @@ export const login = async (req, res) => {
       { expiresIn: "5d" }
     );
     const { password, ...others } = user._doc;
-    res.status(200).json({ ...others, accessToken });
+    res.status(200).json({ message: "LoggedIn successfully" });
   } catch (error) {
     res.status(500).json(error);
   }
