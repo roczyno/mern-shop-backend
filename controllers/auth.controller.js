@@ -30,26 +30,27 @@ export const register = async (req, res) => {
     });
     const savedUser = await newUser.save();
 
-    const token = new Token({
-      userId: user._id,
+    const token = await new Token({
+      userId: savedUser._id,
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
 
-    const url = `${process.env.BASE_URL}auth/api/${user._id}/verify/${token.token}`;
-    await sendEmail(user.email, "Verify email", url);
+    const url = `${process.env.BASE_URL}auth/api/${savedUser._id}/verify/${token.token}`;
+    await sendEmail(savedUser.email, "Verify email", url);
 
     res
       .status(200)
       .send({ message: "Email sent to your account please verify" });
   } catch (error) {
-    res.status(500).send({ message: "Internal server error" });
+    res.status(500).send({ message: `internal server eror ${error}` });
+    console.log(error);
   }
 };
 
 //verify token
 export const verifyToken = async (req, res) => {
   try {
-    const user = await User.findOne({ id: req.params.id });
+    const user = await User.findOne({ _id: req.params.id });
     if (!user) return res.status(400).send({ message: "Invalid Link" });
 
     const token = await Token.findOne({
@@ -58,12 +59,12 @@ export const verifyToken = async (req, res) => {
     });
 
     if (!token) return res.status(400).send({ message: "Invalid Link" });
-    await user.updateOne({ id: user_id, verified: true });
+    await user.updateOne({ _id: user_id, verified: true });
     await token.remove();
 
     res.status(200).send({ message: "Email verified successfully" });
   } catch (error) {
-    res.status(500).send({ message: "Internal server error" });
+    res.status(500).send({ message: `internal server eror ${error}` });
   }
 };
 
@@ -92,10 +93,11 @@ export const login = async (req, res) => {
         const url = `${process.env.BASE_URL}auth/api/${user._id}/verify/${token.token}`;
         await sendEmail(user.email, "Verify email", url);
       }
+
+      return res
+        .status(400)
+        .send({ message: "Email sent to your account please verify" });
     }
-    return res
-      .status(400)
-      .send({ message: "Email sendt to your account please verify" });
 
     const accessToken = jwt.sign(
       {
@@ -105,8 +107,8 @@ export const login = async (req, res) => {
       process.env.SECRET_KEY,
       { expiresIn: "5d" }
     );
-    const { password, ...others } = user._doc;
-    res.status(200).json({ message: "LoggedIn successfully" });
+
+    res.status(200).json({ message: "LoggedIn successfully", accessToken });
   } catch (error) {
     res.status(500).json(error);
   }
