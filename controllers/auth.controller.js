@@ -33,9 +33,10 @@ export const register = async (req, res) => {
     const token = await new Token({
       userId: savedUser._id,
       token: crypto.randomBytes(32).toString("hex"),
-    }).save();
+    });
+    const savedToken = await token.save();
 
-    const url = `${process.env.BASE_URL}auth/api/${savedUser._id}/verify/${token.token}`;
+    const url = `${process.env.BASE_URL}/api/auth/${savedToken.userId}/verify/${savedToken.token}`;
     await sendEmail(savedUser.email, "Verify email", url);
 
     res
@@ -51,20 +52,20 @@ export const register = async (req, res) => {
 export const verifyToken = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id });
-    if (!user) return res.status(400).send({ message: "Invalid Link" });
+    if (!user) return res.status(400).send({ message: "no user found..." });
 
     const token = await Token.findOne({
       userId: user._id,
       token: req.params.token,
     });
+    if (!token) return res.status(400).send({ message: "Invalid link" });
 
-    if (!token) return res.status(400).send({ message: "Invalid Link" });
-    await user.updateOne({ _id: user_id, verified: true });
-    await token.remove();
+    await User.updateOne({ _id: user._id }, { verified: true });
 
     res.status(200).send({ message: "Email verified successfully" });
   } catch (error) {
-    res.status(500).send({ message: `internal server eror ${error}` });
+    res.status(500).send({ message: "Internal Server Error" });
+    console.log(error);
   }
 };
 
@@ -90,7 +91,7 @@ export const login = async (req, res) => {
           token: crypto.randomBytes(32).toString("hex"),
         }).save();
 
-        const url = `${process.env.BASE_URL}auth/api/${user._id}/verify/${token.token}`;
+        const url = `${process.env.BASE_URL}/api/auth/${token.userId}/verify/${token.token}`;
         await sendEmail(user.email, "Verify email", url);
       }
 
