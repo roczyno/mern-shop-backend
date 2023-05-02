@@ -116,8 +116,8 @@ export const login = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
-export const passwordReset = async (req, res) => {
+// send password link
+export const passwordResetLink = async (req, res) => {
   try {
     const emailSchema = joi.object({
       email: joi.string().email().required().label("Email"),
@@ -126,7 +126,7 @@ export const passwordReset = async (req, res) => {
     if (error)
       return res.status(400).send({ message: error.details[0].message });
 
-    const user = await User.findOne({ email: req.body });
+    const user = await User.findOne({ email: req.body.email });
     if (!user)
       res.status(409).send({ message: "User with given email not found" });
     let token = await Token.findOne({
@@ -138,7 +138,7 @@ export const passwordReset = async (req, res) => {
         token: crypto.randomBytes(32).toString("hex"),
       }).save();
     }
-    const url = `${process.env.BASE_URL}password-reset/${user._id}/${token.token}`;
+    const url = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}`;
     await sendEmail(user.email, "Password-Reset", url);
     res
       .status(200)
@@ -146,6 +146,7 @@ export const passwordReset = async (req, res) => {
   } catch (error) {}
 };
 
+// verify password reset link
 export const verifyPasswordResetLink = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id });
@@ -162,6 +163,7 @@ export const verifyPasswordResetLink = async (req, res) => {
   }
 };
 
+//  set new password
 export const resetPassword = async (req, res) => {
   try {
     const passwordSchema = joi.object({

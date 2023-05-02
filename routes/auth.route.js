@@ -1,7 +1,7 @@
 import express from "express";
 import {
   login,
-  passwordReset,
+  passwordResetLink,
   register,
   resetPassword,
   verifyPasswordResetLink,
@@ -12,7 +12,7 @@ const router = express.Router();
 router.post("/register", register);
 router.post("/login", login);
 router.get("/:id/verify/:token/", verifyToken);
-router.post("/password-reset", passwordReset);
+router.post("/password-reset", passwordResetLink);
 router.get("/password-reset/:id/:token", verifyPasswordResetLink);
 router.post("/password-reset/:id/:token", resetPassword);
 
