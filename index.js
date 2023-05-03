@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import AuthRouter from "./routes/auth.route.js";
+import ImagesRoute from "./routes/images.route.js";
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors());
 
 //routes
 app.use("/api/auth", AuthRouter);
+app.use("/api/images", ImagesRoute);
 
 app.listen(5000, () => {
   main();
