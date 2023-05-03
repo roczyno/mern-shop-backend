@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import AuthRouter from "./routes/auth.route.js";
 import ImagesRoute from "./routes/images.route.js";
+import AudiosRoute from "./routes/audios.route.js";
+import VideosRoute from "./routes/videos.route.js";
+import PdfRoute from "./routes/pdf.route.js";
 
 dotenv.config();
 const app = express();
@@ -20,6 +23,9 @@ app.use(cors());
 //routes
 app.use("/api/auth", AuthRouter);
 app.use("/api/images", ImagesRoute);
+app.use("/api/videos", VideosRoute);
+app.use("/api/audio", AudiosRoute);
+app.use("/api/pdf", PdfRoute);
 
 app.listen(5000, () => {
   main();
