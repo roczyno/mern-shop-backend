@@ -14,6 +14,18 @@ const ImagesSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    image_mimetype: {
+      type: String,
+      required: true,
+    },
+    download: {
+      type: Number,
+      default: 0,
+    },
+    emailsSent: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

@@ -111,7 +111,9 @@ export const login = async (req, res) => {
       { expiresIn: "5d" }
     );
 
-    res.status(200).json({ message: "LoggedIn successfully", accessToken });
+    res
+      .status(200)
+      .json({ message: "LoggedIn successfully", accessToken, user });
   } catch (error) {
     res.status(500).json(error);
   }

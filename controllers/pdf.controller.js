@@ -10,7 +10,7 @@ export const getAllPdf = async (req, res) => {
 
 export const addPdf = async (req, res) => {
   try {
-    const newAudio = new Pdf({
+    const newPdf = new Pdf({
       title: req.body.title,
       desc: req.body.desc,
       imageUrl: req.body.imageUrl,
