@@ -28,6 +28,16 @@ app.use(
   "/uploads/images",
   express.static(path.join(__dirname, "/uploads/images"))
 );
+app.use(
+  "/uploads/videos",
+  express.static(path.join(__dirname, "/uploads/videos"))
+);
+app.use("/uploads/pdf", express.static(path.join(__dirname, "/uploads/pdf")));
+app.use(
+  "/uploads/audios",
+  express.static(path.join(__dirname, "/uploads/audios"))
+);
+
 //routes
 app.use("/api/auth", AuthRouter);
 app.use("/api/images", ImagesRoute);

@@ -1,9 +1,17 @@
 import express from "express";
-import { addAudio, getAllAudio } from "../controllers/audio.controller.js";
+import {
+  addAudios,
+  downloadAudio,
+  getAllAudios,
+  getAudio,
+  upload,
+} from "../controllers/audio.controller.js";
 
 const router = express.Router();
 
-router.get("/", getAllAudio);
-router.post("/", addAudio);
+router.get("/find", getAllAudios);
+router.get("/find/:id", getAudio);
+router.post("/upload", upload.single("file"), addAudios);
+router.get("/download/:id", downloadAudio);
 
 export default router;

@@ -10,15 +10,24 @@ const VideosSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    imageUrl: {
-      type: String,
-      required: true,
-    },
     video: {
       type: String,
       required: true,
     },
+    video_mimetype: {
+      type: String,
+      required: true,
+    },
+    download: {
+      type: Number,
+      default: 0,
+    },
+    emailsSent: {
+      type: Number,
+      default: 0,
+    },
   },
+
   { timestamps: true }
 );
 

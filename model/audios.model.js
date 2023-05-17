@@ -10,13 +10,22 @@ const AudiosSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    imageUrl: {
-      type: String,
-      required: true,
-    },
     audio: {
       type: String,
       required: true,
+    },
+
+    audio_mimetype: {
+      type: String,
+      required: true,
+    },
+    download: {
+      type: Number,
+      default: 0,
+    },
+    emailsSent: {
+      type: Number,
+      default: 0,
     },
   },
   { timestamps: true }

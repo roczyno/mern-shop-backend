@@ -10,13 +10,21 @@ const PdfSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    imageUrl: {
-      type: String,
-      required: true,
-    },
     file: {
       type: String,
       required: true,
+    },
+    file_mimetype: {
+      type: String,
+      required: true,
+    },
+    download: {
+      type: Number,
+      default: 0,
+    },
+    emailsSent: {
+      type: Number,
+      default: 0,
     },
   },
   { timestamps: true }
