@@ -8,6 +8,7 @@ import ImagesRoute from "./routes/images.route.js";
 import AudiosRoute from "./routes/audios.route.js";
 import VideosRoute from "./routes/videos.route.js";
 import PdfRoute from "./routes/pdf.route.js";
+import sendEmailWithAttachmentRoute from "./utils/sendEmailWithAttachment.js";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -44,6 +45,7 @@ app.use("/api/images", ImagesRoute);
 app.use("/api/videos", VideosRoute);
 app.use("/api/audios", AudiosRoute);
 app.use("/api/pdf", PdfRoute);
+app.use("/api/email", sendEmailWithAttachmentRoute);
 
 app.listen(5000, () => {
   main();
