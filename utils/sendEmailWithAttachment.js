@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 const router = express.Router();
 
 router.post("/send-email", async (req, res) => {
-  const { recipient, subject, message, attachmentUrl } = req.body;
+  const { recipient, subject, message, downloadLink } = req.body;
 
   // Create a Nodemailer transporter
   const transporter = nodemailer.createTransport({
@@ -23,14 +23,14 @@ router.post("/send-email", async (req, res) => {
   const mailOptions = {
     from: process.env.User,
     to: recipient,
-    subject,
-    text: message,
-    attachments: [
-      {
-        filename: "attachment_filename",
-        path: attachmentUrl,
-      },
-    ],
+    subject: subject,
+    html: `
+    <h3>Download Link</h3>
+    <p>Click the link below to download the file:</p>
+    <a href="${downloadLink} download">Download</a>
+    <h3>Message</h3>
+    <p>${message}</p>
+  `,
   };
 
   try {
