@@ -41,10 +41,6 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "build")));
 
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
 //routes
 app.use("/api/auth", AuthRouter);
 app.use("/api/images", ImagesRoute);
