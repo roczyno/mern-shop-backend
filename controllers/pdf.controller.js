@@ -53,6 +53,13 @@ export const addPdf = async (req, res) => {
   }
 };
 
+export const deletePdf = async (req, res) => {
+  try {
+    await Pdf.findByIdAndDelete(req.params.id);
+    res.status(200).send({ message: "Item deleted successfully" });
+  } catch (error) {}
+};
+
 const multerStorage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, "uploads/pdf");

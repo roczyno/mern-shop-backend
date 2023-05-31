@@ -53,6 +53,13 @@ export const addAudios = async (req, res) => {
   }
 };
 
+export const deleteAudio = async (req, res) => {
+  try {
+    await Audios.findByIdAndDelete(req.params.id);
+    res.status(200).send({ message: "Item deleted successfully" });
+  } catch (error) {}
+};
+
 const multerStorage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, "uploads/audios");

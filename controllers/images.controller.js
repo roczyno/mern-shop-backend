@@ -52,6 +52,12 @@ export const addImages = async (req, res) => {
     console.log(error);
   }
 };
+export const deleteImages = async (req, res) => {
+  try {
+    await Images.findByIdAndDelete(req.params.id);
+    res.status(200).send({ message: "Item deleted successfully" });
+  } catch (error) {}
+};
 
 const multerStorage = multer.diskStorage({
   destination(req, file, cb) {
