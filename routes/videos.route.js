@@ -13,7 +13,6 @@ import {
 } from "../utils/verifyToken.js";
 
 const router = express.Router();
-
 router.get("/find", verifyTokenAndAuthorization, getAllVideos);
 router.get("/find/:id", verifyTokenAndAuthorization, getVideo);
 router.delete("/delete/:id", verifyTokenAndAdmin, deleteVideos);
