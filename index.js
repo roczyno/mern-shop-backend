@@ -24,7 +24,15 @@ const main = async () => {
 
 //middlewares
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://file-server-admin.onrender.com/",
+      "https://heroic-cat-897292.netlify.app",
+      "http://127.0.0.1:5173",
+    ],
+  })
+);
 app.use(
   "/uploads/images",
   express.static(path.join(__dirname, "/uploads/images"))
