@@ -14,7 +14,7 @@ import {
 
 const router = express.Router();
 
-router.get("/find", verifyTokenAndAuthorization, getAllAudios);
+router.get("/find", getAllAudios);
 router.get("/find/:id", verifyTokenAndAuthorization, getAudio);
 router.delete("/delete/:id", verifyTokenAndAdmin, deleteAudio);
 router.post("/upload", upload.single("file"), verifyTokenAndAdmin, addAudios);

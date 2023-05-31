@@ -19,7 +19,7 @@ export const verifyTokenAndAuthorization = (req, res, next) => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {
-      res.status(403).json("You are not alowed");
+      res.status(403).json("You are not allowed");
     }
   });
 };
