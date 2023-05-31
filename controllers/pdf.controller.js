@@ -69,14 +69,12 @@ const multerStorage = multer.diskStorage({
   },
 });
 const multerFilter = (req, file, cb) => {
-  if (!file.originalname.match(/\.(jpeg|jpg|png|pdf|doc|docx|xlsx|xls)$/)) {
+  if (!file.originalname.match(/\.(pdf)$/)) {
     return cb(
-      new Error(
-        "only upload files with jpg, jpeg, png, pdf, doc, docx, xslx, xls format."
-      )
+      new Error("Only upload PDF files with the following format: pdf.")
     );
   }
-  cb(undefined, true); // continue with upload
+  cb(null, true); // continue with upload
 };
 export const upload = multer({
   storage: multerStorage,

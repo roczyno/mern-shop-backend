@@ -70,15 +70,9 @@ const multerStorage = multer.diskStorage({
 });
 
 const multerFilter = (req, file, cb) => {
-  if (
-    !file.originalname.match(
-      /\.(jpeg|jpg|png|pdf|doc|docx|xlsx|xls|mp3|wav|mp4|mov|wmv)$/
-    )
-  ) {
+  if (!file.originalname.match(/\.(mp3|wav)$/)) {
     return cb(
-      new Error(
-        "Only upload files with the following formats: jpg, jpeg, png, pdf, doc, docx, xslx, xls, mp3, wav, mp4,wmv, mov."
-      )
+      new Error("Only upload audio files with the following formats: mp3, wav.")
     );
   }
   cb(null, true); // continue with upload

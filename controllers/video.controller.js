@@ -70,14 +70,10 @@ const multerStorage = multer.diskStorage({
 });
 
 const multerFilter = (req, file, cb) => {
-  if (
-    !file.originalname.match(
-      /\.(jpeg|jpg|png|pdf|doc|docx|xlsx|xls|mp3|wav|mp4|mov|wmv)$/
-    )
-  ) {
+  if (!file.originalname.match(/\.(mp4|mov|wmv)$/)) {
     return cb(
       new Error(
-        "Only upload files with the following formats: jpg, jpeg, png, pdf, doc, docx, xslx, xls, mp3, wav, mp4,wmv, mov."
+        "Only upload video files with the following formats: mp4, mov, wmv."
       )
     );
   }
