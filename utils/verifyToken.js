@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 
 export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.token;
-  const token = authHeader.split(" ")[1];
   if (authHeader) {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, process.env.SECRECT_KEY, (err, user) => {
