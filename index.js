@@ -27,9 +27,8 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://file-server-admin.onrender.com/",
+      "https://file-server-admin.onrender.com",
       "https://heroic-cat-897292.netlify.app",
-      "http://127.0.0.1:5173",
     ],
   })
 );
