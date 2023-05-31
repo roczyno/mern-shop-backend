@@ -14,7 +14,7 @@ import {
 
 const router = express.Router();
 
-router.get("/find", getAllPdf);
+router.get("/find", verifyTokenAndAuthorization, getAllPdf);
 router.get("/find/:id", verifyTokenAndAuthorization, getPdf);
 router.delete("/delete/:id", verifyTokenAndAdmin, deletePdf);
 router.post("/upload", upload.single("file"), verifyTokenAndAdmin, addPdf);

@@ -14,7 +14,7 @@ import {
 
 const router = express.Router();
 
-router.get("/find", getAllImages);
+router.get("/find", verifyTokenAndAuthorization, getAllImages);
 router.get("/find/:id", verifyTokenAndAuthorization, getImage);
 router.delete("/delete/:id", verifyTokenAndAdmin, deleteImages);
 router.post("/upload", upload.single("file"), verifyTokenAndAdmin, addImages);
