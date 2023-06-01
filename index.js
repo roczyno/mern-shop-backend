@@ -26,10 +26,10 @@ const main = async () => {
 app.use(express.json());
 app.use(
   cors({
-    // origin: [
-    //   "https://file-server-admin.onrender.com",
-    //   "https://heroic-cat-897292.netlify.app",
-    // ],
+    origin: [
+      "https://file-server-admin.onrender.com",
+      "https://file-shop.netlify.app",
+    ],
   })
 );
 app.use(
