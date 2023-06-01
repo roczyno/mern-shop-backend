@@ -29,19 +29,22 @@ app.use(
     origin: [
       "https://file-server-admin.onrender.com",
       "https://file-shop.netlify.app",
-      "http://127.0.0.1:5173",
+      "http://127.0.0.1:5173/",
     ],
   })
 );
-app.use("/", express.static(path.join(__dirname, "/uploads/images")));
+app.use(
+  "/uploads/images",
+  express.static(path.join(__dirname, "./uploads/images"))
+);
 app.use(
   "/uploads/videos",
-  express.static(path.join(__dirname, "/uploads/videos"))
+  express.static(path.join(__dirname, "./uploads/videos"))
 );
-app.use("/uploads/pdf", express.static(path.join(__dirname, "/uploads/pdf")));
+app.use("/uploads/pdf", express.static(path.join(__dirname, "./uploads/pdf")));
 app.use(
   "/uploads/audios",
-  express.static(path.join(__dirname, "/uploads/audios"))
+  express.static(path.join(__dirname, "./uploads/audios"))
 );
 
 // app.use(express.static(path.join(__dirname, "build")));
