@@ -14,7 +14,7 @@ const router = express.Router();
 router.get("/find", getAllAudios);
 router.get("/find/:id", getAudio);
 router.delete("/delete/:id", verifyTokenAndAdmin, deleteAudio);
-router.post("/upload", upload.single("file"), verifyTokenAndAdmin, addAudios);
+router.post("/upload", verifyTokenAndAdmin, upload.single("file"), addAudios);
 router.get("/download/:id", downloadAudio);
 
 export default router;

@@ -56,7 +56,9 @@ export const deleteImages = async (req, res) => {
   try {
     await Images.findByIdAndDelete(req.params.id);
     res.status(200).send({ message: "Item deleted successfully" });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const multerStorage = multer.diskStorage({
