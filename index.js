@@ -46,7 +46,7 @@ app.use(
   express.static(path.join(__dirname, "./uploads/audios"))
 );
 
-app.use(express.static(path.join(__dirname, "./build")));
+app.use(express.static(path.join(__dirname, "/build")));
 
 //routes
 app.use("/api/auth", AuthRouter);
