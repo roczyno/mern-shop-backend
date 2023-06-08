@@ -29,7 +29,8 @@ app.use(
     origin: [
       "https://file-server-admin.onrender.com",
       "https://file-shop.netlify.app",
-      "http://127.0.0.1:5173/",
+      "http://127.0.0.1:5173",
+      "http://127.0.0.1:5174",
     ],
   })
 );
