@@ -7,6 +7,7 @@ import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
 import passwordComplexity from "joi-password-complexity";
 import joi from "joi";
+import { sendEmailForPasswordReset } from "../utils/sendEmailPasswordReset.js";
 
 export const register = async (req, res) => {
   try {
@@ -141,7 +142,7 @@ export const passwordResetLink = async (req, res) => {
       }).save();
     }
     const url = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}`;
-    await sendEmail(user.email, "Password-Reset", url);
+    await sendEmailForPasswordReset(user.email, "Password-Reset", url);
     res
       .status(200)
       .send({ message: "Password reset link send to your email account" });
